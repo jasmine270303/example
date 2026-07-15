@@ -310,28 +310,51 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtnIcon.className = "fa-solid fa-spinner fa-spin";
             submitBtn.disabled = true;
             
-            // Simulate API request timeout
-            setTimeout(() => {
-                const nameInput = document.getElementById('name').value;
-                
-                // Show Success Notification
-                formFeedback.className = "form-feedback success";
-                formFeedback.textContent = `Thank you, ${nameInput}! Your message has been sent successfully. I'll get back to you shortly.`;
-                
+            // Clear any previous feedback state
+            formFeedback.style.display = '';
+            formFeedback.className = "form-feedback";
+            formFeedback.textContent = "";
+
+            const formData = new FormData(contactForm);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(async (response) => {
+                const resJson = await response.json();
+                if (response.status === 200) {
+                    const nameInput = document.getElementById('name').value;
+                    // Show Success Notification
+                    formFeedback.className = "form-feedback success";
+                    formFeedback.textContent = `Thank you, ${nameInput}! Your message has been sent successfully.`;
+                    // Reset form fields
+                    contactForm.reset();
+                } else {
+                    // Show Error Notification
+                    formFeedback.className = "form-feedback error";
+                    formFeedback.textContent = resJson.message || "Something went wrong. Please try again.";
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                formFeedback.className = "form-feedback error";
+                formFeedback.textContent = "Unable to send message. Please check your internet connection.";
+            })
+            .finally(() => {
                 // Reset submit button state
                 submitBtnText.textContent = "Send Message";
                 submitBtnIcon.className = "fa-solid fa-paper-plane";
                 submitBtn.disabled = false;
                 
-                // Reset form fields
-                contactForm.reset();
-                
-                // Hide feedback after 5 seconds
+                // Hide feedback after 6 seconds
                 setTimeout(() => {
                     formFeedback.style.display = 'none';
-                }, 5000);
-
-            }, 1800);
+                }, 6000);
+            });
         });
     }
 });
