@@ -1378,3 +1378,109 @@ section {
         text-align: center;
     }
 }
+
+/* ==========================================================================
+   Success / Thank You Page Styles
+   ========================================================================== */
+.success-page-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--header-height) + 40px) 24px 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.success-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    padding: 60px 40px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+    animation: successCardEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes successCardEntry {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-icon-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-icon-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--accent-glow-sec) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    animation: successPulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes successPulse {
+    from { transform: scale(0.9); opacity: 0.5; }
+    to { transform: scale(1.25); opacity: 1; }
+}
+
+.success-icon {
+    font-size: 4.5rem;
+    background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 1;
+}
+
+.success-title {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.success-message {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.success-actions {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 480px) {
+    .success-card {
+        padding: 40px 24px;
+    }
+    .success-title {
+        font-size: 2.2rem;
+    }
+    .success-message {
+        font-size: 1rem;
+    }
+}
+

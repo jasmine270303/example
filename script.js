@@ -327,12 +327,10 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(async (response) => {
                 const resJson = await response.json();
                 if (response.status === 200) {
-                    const nameInput = document.getElementById('name').value;
-                    // Show Success Notification
-                    formFeedback.className = "form-feedback success";
-                    formFeedback.textContent = `Thank you, ${nameInput}! Your message has been sent successfully.`;
                     // Reset form fields
                     contactForm.reset();
+                    // Redirect to the success/thank you page
+                    window.location.href = 'thankyou.html';
                 } else {
                     // Show Error Notification
                     formFeedback.className = "form-feedback error";
